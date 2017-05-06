@@ -1,0 +1,327 @@
+@import "_global";
+@import "_global";
+@import "_header";
+@import "_footer";
+// ====================================
+// 滑动图片
+// ====================================
+#slider {
+    @light-bgc: rgba(0, 0, 0, .6);
+    @dark-bgc: rgba(0, 0, 0, .8);
+    .relative();
+    overflow: auto;
+    // 滑动图片
+    ul {
+        .reset(ul);
+        & > li {
+            float: left;
+            width: 100%;
+        }
+        img {
+            width: 100%;
+            height: auto;
+        }
+    }
+    // 文字标题  
+    .slider-title > span {
+        .absolute(lb, 10%, 10%);
+        font-size: 1.4em;
+        z-index: 2;
+        width: 35%;
+        min-width: 200px;
+        padding: 20px 30px;
+        letter-spacing: .1em;
+        color: #fff;
+        background-color: @light-bgc;
+    }
+    // 导航点
+    ol.dots {
+        .reset(ol);
+        .absolute(rb, 50%, 5%);
+        z-index: 3;
+        li.dot {
+            .circle(6px);
+            float: left;
+            margin-right: 10px;
+            cursor: pointer;
+            background-color: #fff;
+        }
+        li.active {
+            background-color: @base-color;
+        }
+    }
+    // 上一页、下一页
+    .arrows span {
+        @lr: 10px;
+        @t: 40%;
+        .transition(background-color);
+        font-size: 2em;
+        line-height: 60px;
+        z-index: 3;
+        display: inline-block;
+        width: 45px;
+        height: 60px;
+        cursor: pointer;
+        text-align: center;
+        color: #fff;
+        background-color: @light-bgc;
+        &:hover {
+            background-color: @dark-bgc;
+        }
+        &.prev {
+            .absolute(lt, @lr, @t);
+        }
+        &.next {
+            .absolute(rt, @lr, @t);
+        }
+    }
+}
+
+@media screen and (max-width: @screen-sm-max) and (min-width: @screen-sm-min) {
+    #slider p.slider-title > span {
+        font-size: 1.2em;
+        padding: 10px 20px;
+    }
+}
+
+// 不同设备上，改变文字标题区域的字体大小
+@media screen and (max-width: @screen-xs-max) {
+    #slider p.slider-title > span {
+        font-size: 1.0em;
+        padding: 5px 10px;
+    }
+}
+
+// ====================================
+// 主要内容区域
+// ====================================
+@link-color: #333;
+// 强制不换行，超出部分用...省略
+.no-anotherline(@w) {
+    width: @w;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+// 每个区域
+#main {
+    padding-bottom: 30px;
+    .col-lg-5,
+    .col-md-5 {
+        padding: 0 25px;
+    }
+}
+
+.main-box {
+    height: 220px;
+    margin-top: 40px;
+    overflow: hidden;
+    // 头部标题
+    .box-header {
+        .relative();
+        margin-bottom: 15px;
+    }
+    h3 {
+        .reset();
+        .font-family(hei);
+        color: @link-color;
+        font-weight: bold;
+        border-bottom: 1px solid #ccc;
+        padding: 10px 0;
+        letter-spacing: 0.2em;
+        & i {
+            .transition(transform, slow);
+            margin: 0 1em 0 0.5em;
+        }
+    }
+    &:hover h3 i {
+        .transform(rotate(360deg)); // 标题的图标旋转
+    }
+    .more {
+        .absolute(rb, 0, 5px);
+        color: @base-color;
+        &:hover {
+            color: #ff4599;
+            text-decoration: none;
+        }
+    }
+    ul {
+        .reset(ul);
+    }
+}
+
+// 预告类
+.preview {
+    li {
+        @h: 40px;
+        @time-w: 60px;
+        @time-color: #29496b;
+        .relative();
+        height: @h;
+        margin-bottom: 15px;
+        // 文字
+        a {
+            .absolute(lt, (@time-w + 20), 0);
+            .no-anotherline(80%);
+            line-height: @h;
+            font-size: 1.2em;
+            color: @link-color;
+            &:hover {
+                color: @base-color;
+            }
+        }
+        // 时间
+        time {
+            .absolute(lt, 0, 0);
+            display: inline-block;
+            width: @time-w;
+            height: @h;
+        }
+        .commom-style() {
+            width: 100%;
+            display: block;
+            text-align: center;
+        }
+        .year-month {
+            .absolute(lt, 0, 0);
+            .commom-style();
+            background-color: @time-color;
+            color: #fff;
+        }
+        .day {
+            .absolute(lb, 0, 0);
+            .commom-style();
+            background-color: #e8e8e8;
+            color: @time-color;
+        }
+    }
+}
+
+// 新闻类
+.news {
+    li {
+        @h: 33px;
+        .relative();
+        height: @h;
+        line-height: @h;
+        // 文字
+        a {
+            .no-anotherline(80%);
+            .absolute(lb, 0, 0);
+            color: @link-color;
+            font-size: 1.1em;
+            &:hover {
+                color: @base-color;
+            }
+            &:before {
+                .font-family(awesome);
+                content: "\f0da";
+                margin-right: 8px;
+            }
+        }
+        // 时间
+        time {
+            .absolute(rb, 0, 0);
+            color: #aaa;
+            &:before {
+                content: '( ';
+            }
+            &:after {
+                content: ' )';
+            }
+        }
+        a:hover + time {
+            color: @base-color;
+        }
+    }
+}
+
+// 侧边栏
+aside {
+    @aside-bgc: #F3F9FC;
+    background-color: @aside-bgc;
+    .transition(box-shadow, fast);
+    border: 1px solid #eee;
+    margin-top: 40px;
+    padding: 18px;
+    text-align: center;
+    &:hover {
+        .box-shadow(4px, 4px, 10px, rgba(0, 0, 0, 0.1));
+    }
+}
+
+.aside-box {
+    @titile-color: #333;
+    margin-bottom: 25px;
+    &:last-child {
+        margin-bottom: 0;
+    }
+    // 头部标题
+    h4 {
+        .reset();
+        .font-family(hei);
+        color: @titile-color;
+        border-bottom: 2px solid @base-color;
+        padding-bottom: 8px;
+        margin-bottom: 8px;
+        line-height: 40px;
+    }
+    // 列表
+    ul {
+        .reset(ul);
+    }
+    li {
+        margin: 15px 0;
+        border-bottom: 1px solid #3399FF;
+        text-align: center;
+        &:last-child {
+            margin: 0;
+        }
+        // 文字
+        a {
+            line-height: 40px;
+            font-size: 1.428em;
+            display: block;
+            &:hover {
+                text-decoration: none;
+            }
+        }
+        // 图标
+        .icon {
+            .transition(background-position, fast);
+            .icons-customer-bg();
+            display: block;
+            margin: 0 auto;
+            width: 40px;
+        }
+        .icon-home {
+            height: 38px;
+            background-position: center -81px;
+        }
+        &:hover .icon-home {
+            background-position: center -119px;
+        }
+        .icon-user {
+            height: 34px;
+            background-position: center -156px;
+        }
+        &:hover .icon-user {
+            background-position: center -190px;
+        }
+        .icon-download {
+            height: 36px;
+            background-position: center -222px;
+        }
+        &:hover .icon-download {
+            background-position: center -258px;
+        }
+        .icon-survey {
+            height: 41px;
+            background-position: center 0;
+        }
+        &:hover .icon-survey {
+            background-position: center -41px;
+        }
+    }
+}

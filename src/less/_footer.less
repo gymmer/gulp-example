@@ -1,0 +1,62 @@
+@import "_global";
+@footer-bgc: #072B69;
+@footer-text-color: #bbb;
+@footer-text-hover-color: #999;
+@go-to-top-wh: 40px;
+@go-to-top-img: url(../img/up.png);
+@go-to-top-hover-img: url(../img/up_hover.png);
+// ====================================
+// 页脚
+// ====================================
+footer {
+    background-color: @footer-bgc;
+    text-align: center;
+    color: @footer-text-color;
+    padding: 30px 0;
+    a {
+        color: @footer-text-color;
+        &:hover {
+            color: @footer-text-hover-color;
+        }
+    }
+    .friend {
+        .reset();
+        margin-bottom: 10px;
+        a {
+            padding: 0 8px 0 5px;
+            border-right: 1px solid @footer-text-color;
+            &:first-child{
+                padding-left: 0;
+            }
+            &:last-child {
+                border-right: 0;
+            }
+        }
+    }
+    .address {
+        .reset();
+        span {
+            display: inline-block;
+            padding: 0 15px;
+            border-right: 1px solid #444;
+            &:nth-child(4) {
+                border-right: 0;
+            }
+        }
+    }
+}
+
+// ====================================
+// 返回顶部
+// ====================================
+#go-to-top {
+    .fixed(rb, 25px, 60px);
+    display: none;
+    width: @go-to-top-wh;
+    height: @go-to-top-wh;
+    cursor: pointer;
+    background-image: @go-to-top-img;
+    &:hover {
+        background-image: @go-to-top-hover-img;
+    }
+}

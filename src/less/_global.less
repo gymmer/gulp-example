@@ -1,0 +1,333 @@
+// ====================================
+// 类
+// ====================================
+// 清除浮动
+.clearfix {
+    zoom: 1;
+    &:after {
+        font-size: 0;
+        display: block;
+        visibility: hidden;
+        clear: both;
+        height: 0;
+        content: ' ';
+    }
+}
+
+// ====================================
+// 变量
+// ====================================
+//@base-color: #014da1;
+@base-color: #0ff;
+@base-font: Helvetica,
+Arial,
+sans-serif;
+// 媒体查询的屏幕尺寸，与bootstrap一致
+@screen-lg-min: 1200px;
+@screen-md-max: 1199px;
+@screen-md-min: 992px;
+@screen-sm-max: 991px;
+@screen-sm-min: 768px;
+@screen-xs-max: 767px;
+// ====================================
+// 函数
+// ====================================
+// icons 背景图片
+.icons-bg(@left: 0, @top: 0) {
+    background-image: url(../img/icons.png);
+    background-repeat: no-repeat;
+    background-position: @left @top;
+}
+.icons-customer-bg(@left: 0, @top: 0) {
+    background-image: url(../img/icons-customer.png);
+    background-repeat: no-repeat;
+    background-position: @left @top;
+}
+// 字体
+.font-family() {
+    font-family: @base-font;
+}
+
+.font-family(hei) {
+    font-family: 'simhei', '黑体', @base-font;
+}
+
+.font-family(yahei) {
+    font-family: 'Microsoft Yahei', '微软雅黑', @base-font;
+}
+
+.font-family(awesome) {
+    font-family: FontAwesome;
+}
+
+// 浮动
+.fl() {
+    float: left;
+    display: inline;
+}
+
+.fr() {
+    float: right;
+    display: inline;
+}
+
+// 相对定位
+.relative() {
+    position: relative;
+}
+
+.relative(lt, @left: 0, @top: 0) {
+    position: relative;
+    left: @left;
+    top: @top;
+}
+
+.relative(lb, @left: 0, @bottom: 0) {
+    position: relative;
+    left: @left;
+    bottom: @bottom;
+}
+
+.relative(rt, @right: 0, @top: 0) {
+    position: relative;
+    right: @right;
+    top: @top;
+}
+
+.relative(rb, @right: 0, @bottom: 0) {
+    position: relative;
+    right: @right;
+    bottom: @bottom;
+}
+
+.relative(tl, @top: 0, @left: 0) {
+    position: relative;
+    left: @left;
+    top: @top;
+}
+
+.relative(bl, @bottom: 0, @left: 0) {
+    position: relative;
+    left: @left;
+    bottom: @bottom;
+}
+
+.relative(tr, @top: 0, @right: 0) {
+    position: relative;
+    right: @right;
+    top: @top;
+}
+
+.relative(br, @bottom: 0, @right: 0) {
+    position: relative;
+    right: @right;
+    bottom: @bottom;
+}
+
+// 绝对定位
+.absolute() {
+    position: absolute;
+}
+
+.absolute(lt, @left: 0, @top: 0) {
+    position: absolute;
+    left: @left;
+    top: @top;
+}
+
+.absolute(lb, @left: 0, @bottom: 0) {
+    position: absolute;
+    left: @left;
+    bottom: @bottom;
+}
+
+.absolute(rt, @right: 0, @top: 0) {
+    position: absolute;
+    right: @right;
+    top: @top;
+}
+
+.absolute(rb, @right: 0, @bottom: 0) {
+    position: absolute;
+    right: @right;
+    bottom: @bottom;
+}
+
+.absolute(tl, @top: 0, @left: 0) {
+    position: absolute;
+    left: @left;
+    top: @top;
+}
+
+.absolute(bl, @bottom: 0, @left: 0) {
+    position: absolute;
+    left: @left;
+    bottom: @bottom;
+}
+
+.absolute(tr, @top: 0, @right: 0) {
+    position: absolute;
+    right: @right;
+    top: @top;
+}
+
+.absolute(br, @bottom: 0, @right: 0) {
+    position: absolute;
+    right: @right;
+    bottom: @bottom;
+}
+
+// 固定定位
+.fixed() {
+    position: fixed;
+}
+
+.fixed(lt, @left: 0, @top: 0) {
+    position: fixed;
+    left: @left;
+    top: @top;
+}
+
+.fixed(lb, @left: 0, @bottom: 0) {
+    position: fixed;
+    left: @left;
+    bottom: @bottom;
+}
+
+.fixed(rt, @right: 0, @top: 0) {
+    position: fixed;
+    right: @right;
+    top: @top;
+}
+
+.fixed(rb, @right: 0, @bottom: 0) {
+    position: fixed;
+    right: @right;
+    bottom: @bottom;
+}
+
+.fixed(tl, @top: 0, @left: 0) {
+    position: fixed;
+    left: @left;
+    top: @top;
+}
+
+.fixed(bl, @bottom: 0, @left: 0) {
+    position: fixed;
+    left: @left;
+    bottom: @bottom;
+}
+
+.fixed(tr, @top: 0, @right: 0) {
+    position: fixed;
+    right: @right;
+    top: @top;
+}
+
+.fixed(br, @bottom: 0, @right: 0) {
+    position: fixed;
+    right: @right;
+    bottom: @bottom;
+}
+
+// 重置
+.reset() {
+    margin: 0;
+    padding: 0;
+}
+
+.reset(ul) {
+    .reset();
+    font: inherit;
+    font-size: 100%;
+    list-style: none;
+    vertical-align: baseline;
+    border: 0;
+}
+
+.reset(ol) {
+    .reset();
+    font: inherit;
+    font-size: 100%;
+    list-style: none;
+    vertical-align: baseline;
+    border: 0;
+}
+
+// 渐变
+.transition(@type, @time) {
+    transition: @type, @time;
+    -o-transition: @type, @time;
+    -ms-transition: @type, @time;
+    -moz-transition: @type, @time;
+    -webkit-transition: @type, @time;
+}
+
+.transition(@type, fast) {
+    @time: 0.2s;
+    transition: @type, @time;
+    -o-transition: @type, @time;
+    -ms-transition: @type, @time;
+    -moz-transition: @type, @time;
+    -webkit-transition: @type, @time;
+}
+
+.transition(@type) {
+    @time: 0.4s;
+    transition: @type, @time;
+    -o-transition: @type, @time;
+    -ms-transition: @type, @time;
+    -moz-transition: @type, @time;
+    -webkit-transition: @type, @time;
+}
+
+.transition(@type, slow) {
+    @time: 0.8s;
+    transition: @type, @time;
+    -o-transition: @type, @time;
+    -ms-transition: @type, @time;
+    -moz-transition: @type, @time;
+    -webkit-transition: @type, @time;
+}
+
+// 圆角
+.border-radius(@para: 0) {
+    border-radius: @para;
+    -o-border-radius: @para;
+    -ms-border-radius: @para;
+    -moz-border-radius: @para;
+    -webkit-border-radius: @para;
+}
+
+.border-radius(@lt: 0, @rt :0, @rb: 0, @lb: 0) {
+    border-radius: @lt, @rt, @rb, @lb;
+    -o-border-radius: @lt, @rt, @rb, @lb;
+    -ms-border-radius: @lt, @rt, @rb, @lb;
+    -moz-border-radius: @lt, @rt, @rb, @lb;
+    -webkit-border-radius: @lt, @rt, @rb, @lb;
+}
+
+// 圆，输入为半径
+.circle(@r: 0) {
+    width: @r * 2;
+    height: @r * 2;
+    .border-radius(50%);
+}
+
+// 2D转换
+.transform(@para) {
+    transform: @para;
+    -o-transform: @para;
+    -ms-transform: @para;
+    -moz-transform: @para;
+    -webkit-transform: @para;
+}
+
+// 阴影
+.box-shadow(@x: 0, @y: 0, @offset: 0, @color: #000) {
+    box-shadow: @x @y @offset @color;
+    -o-box-shadow: @x @y @offset @color;
+    -ms-box-shadow: @x @y @offset @color;
+    -moz-box-shadow: @x @y @offset @color;
+    -webkit-box-shadow: @x @y @offset @color;
+}

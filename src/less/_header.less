@@ -1,0 +1,119 @@
+@import "_global";
+@header-bgc: #f9f9f9;
+@nav-bgc: #014da1;
+@nav-hover-bgc: #032850;
+@nav-sub-bgc: #032850;
+@nav-sub-hover-bgc: #011c3a;
+@header-h: 60px;
+@nav-cell-w: 125px;
+@nav-h: 53px;
+// ====================================
+// 顶部logo区域
+// ====================================
+#primary-header {
+    @temp-padding: 10px;
+    background-color: @header-bgc;
+    padding: 15px;
+    .logo {
+        .fl();
+        padding-right: @temp-padding;
+    }
+    h1 {
+        .reset();
+        .fl();
+        .font-family(hei);
+        font-size: 2.2em;
+        color: @base-color;
+        padding-left: @temp-padding;
+        height: @header-h;
+        line-height: @header-h;
+    }
+    .qrcode {
+        @qrcode-w: 36px;
+        @qrcode-h: 30px;
+        @thumbnail-padding: 10px;
+        .fr();
+        .relative();
+        .icons-bg(0, 0);
+        width: @qrcode-w;
+        height: @qrcode-h;
+        cursor: pointer;
+        margin-top: 20px;
+        img {
+            .border-radius(5px);
+            .absolute(rt, -((@header-h / 2) + @thumbnail-padding), (@qrcode-h+10px));
+            display: none;
+            z-index: 9;
+            padding: @thumbnail-padding;
+            background-color: #ccc;
+            width: 2*@header-h;
+        }
+    }
+}
+
+// ====================================
+// 导航栏/菜单
+// ====================================
+// 导航栏的每一个格子，上下、左右对齐，无下划线
+.nav-cell(@w, @h) {
+    width: @w;
+    height: @h;
+    line-height: @h;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+#primary-nav {
+    .font-family(yahei);
+    background-color: @nav-bgc;
+    width: 100%;
+    letter-spacing: 0.2em;
+    // 一级菜单
+    .parent {
+        .reset(ul);
+        .clearfix();
+        display: inline;
+        & > li {
+            .fl();
+            .relative();
+        }
+        & > li > a {
+            .fl();
+            .transition(background-color, fast);
+            .nav-cell(@nav-cell-w, @nav-h);
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #fff;
+        }
+        & > li:hover > a {
+            background-color: @nav-hover-bgc;
+        }
+    }
+    // 二级菜单
+    .sub {
+        .reset(ul);
+        .absolute(lt, 0, @nav-h);
+        z-index: 9;
+        display: none;
+        background-color: @nav-sub-bgc;
+        a {
+            display: block;
+            .nav-cell(@nav-cell-w, @nav-h);
+            color: #fff;
+            font-size: 1.1em;
+            &:hover {
+                background-color: @nav-sub-hover-bgc;
+            }
+        }
+    }
+}
+
+// 滚动时导航栏固定在最顶部
+.nav-fix-top {
+    .fixed(lt, 0, 0);
+    z-index: 999;
+}
