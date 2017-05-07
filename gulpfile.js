@@ -35,13 +35,13 @@ gulp.task('jslint', function() {
 });
 
 gulp.task('debug-js', function() {
-	return gulp.src('src/js/**/*')
+	return gulp.src('src/js/**/*.js')
 		.pipe(gulp.dest('debug/js'))
 		.pipe(plugins.connect.reload());
 });
 
 gulp.task('debug-css', function() {
-	return gulp.src('src/css/**/*')
+	return gulp.src('src/css/**/*.css')
 		.pipe(gulp.dest('debug/css'))
 		.pipe(plugins.connect.reload());
 });
@@ -61,8 +61,12 @@ gulp.task('debug-less', function() {
 
 gulp.task('debug-img', function() {
 	return gulp.src('src/img/**/*')
-		.pipe(gulp.dest('debug/img'))
-		.pipe(plugins.connect.reload());
+		.pipe(gulp.dest('debug/img'));
+});
+
+gulp.task('debug-fonts', function() {
+	return gulp.src('src/css/fonts/**/*')
+		.pipe(gulp.dest('debug/css/fonts'));
 });
 
 gulp.task('watch', function() {
@@ -77,9 +81,6 @@ gulp.task('watch', function() {
 	});
 	gulp.watch('src/less/**/*.less', function() {
 		gulp.run('debug-less');
-	});
-	gulp.watch('src/img/**/*', function() {
-		gulp.run('debug-img');
 	});
 });
 
@@ -99,7 +100,7 @@ gulp.task('debug', ['clean-debug'], function() {
 // release
 
 gulp.task('release-js', function() {
-	return gulp.src('src/js/**/*')
+	return gulp.src('src/js/**/*.js')
 		.pipe(plugins.uglify())					// JS压缩
 		.pipe(plugins.rev())					// 添加MD5
 		.pipe(gulp.dest('release/js'))			// 保存JS文件
@@ -116,11 +117,6 @@ gulp.task('release-css', function() {
         .pipe(gulp.dest('release/rev/css'));	// 保存映射
 });
 
-gulp.task('release-fonts', function() {
-	return gulp.src('src/css/fonts/**/*')
-		.pipe(gulp.dest('release/css/fonts'));
-});
-
 gulp.task('release-less', function() {
 	return gulp.src('src/less/**/*.less')
 		.pipe(plugins.less())					// 编译less
@@ -129,6 +125,11 @@ gulp.task('release-less', function() {
 		.pipe(gulp.dest('release/css/user'))	// 保存CSS文件
 		.pipe(plugins.rev.manifest())			// 生成MD5映射
         .pipe(gulp.dest('release/rev/less'));	// 保存映射
+});
+
+gulp.task('release-fonts', function() {
+	return gulp.src('src/css/fonts/**/*')
+		.pipe(gulp.dest('release/css/fonts'));
 });
 
 gulp.task('release-img', function() {
