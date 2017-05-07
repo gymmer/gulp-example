@@ -291,7 +291,7 @@ sans-serif;
 }
 
 // 圆角
-.border-radius(@para: 0) {
+.border-radius(@para) {
     border-radius: @para;
     -o-border-radius: @para;
     -ms-border-radius: @para;
@@ -299,12 +299,12 @@ sans-serif;
     -webkit-border-radius: @para;
 }
 
-.border-radius(@lt: 0, @rt :0, @rb: 0, @lb: 0) {
-    border-radius: @lt, @rt, @rb, @lb;
-    -o-border-radius: @lt, @rt, @rb, @lb;
-    -ms-border-radius: @lt, @rt, @rb, @lb;
-    -moz-border-radius: @lt, @rt, @rb, @lb;
-    -webkit-border-radius: @lt, @rt, @rb, @lb;
+.border-radius(@lt, @rt, @rb, @lb) {
+    border-radius: @lt @rt @rb @lb;
+    -o-border-radius: @lt @rt @rb @lb;
+    -ms-border-radius: @lt @rt @rb @lb;
+    -moz-border-radius: @lt @rt @rb @lb;
+    -webkit-border-radius: @lt @rt @rb @lb;
 }
 
 // 圆，输入为半径

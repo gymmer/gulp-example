@@ -48,11 +48,6 @@
   -ms-border-radius: 5px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
-  border-radius: 5px, 0, 0, 0;
-  -o-border-radius: 5px, 0, 0, 0;
-  -ms-border-radius: 5px, 0, 0, 0;
-  -moz-border-radius: 5px, 0, 0, 0;
-  -webkit-border-radius: 5px, 0, 0, 0;
   position: absolute;
   right: -40px;
   top: 40px;
@@ -266,11 +261,6 @@ footer .address span:nth-child(4) {
   -ms-border-radius: 50%;
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
-  border-radius: 50%, 0, 0, 0;
-  -o-border-radius: 50%, 0, 0, 0;
-  -ms-border-radius: 50%, 0, 0, 0;
-  -moz-border-radius: 50%, 0, 0, 0;
-  -webkit-border-radius: 50%, 0, 0, 0;
   float: left;
   margin-right: 10px;
   cursor: pointer;

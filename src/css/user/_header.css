@@ -48,11 +48,6 @@
   -ms-border-radius: 5px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
-  border-radius: 5px, 0, 0, 0;
-  -o-border-radius: 5px, 0, 0, 0;
-  -ms-border-radius: 5px, 0, 0, 0;
-  -moz-border-radius: 5px, 0, 0, 0;
-  -webkit-border-radius: 5px, 0, 0, 0;
   position: absolute;
   right: -40px;
   top: 40px;
