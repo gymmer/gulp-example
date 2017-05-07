@@ -94,7 +94,7 @@ gulp.task('server', function() {
 });
 
 gulp.task('debug', ['clean-debug'], function() {
-	return gulp.run('jslint', 'debug-js', 'debug-css', 'debug-html', 'debug-less', 'debug-img', 'watch', 'server');
+	return gulp.run('jslint', 'debug-js', 'debug-css', 'debug-html', 'debug-less', 'debug-img', 'debug-fonts', 'watch', 'server');
 });
 
 // release
