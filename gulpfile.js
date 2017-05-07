@@ -77,12 +77,12 @@ gulp.task('release-html', ['release-js', 'release-css'], function() {		// 依赖
 });
 
 gulp.task('release-fonts', function() {
-	return gulp.src(['src/**/*.eot', 'src/**/*.ttf', 'src/**/*.woff', 'src/**/*.woff2', 'src/**/*.otf'])
+	return gulp.src('src/**/*.{eot,ttf,woff,woff2,otf}')
 		.pipe(gulp.dest('release'));
 });
 
 gulp.task('release-img', function() {
-	return gulp.src(['src/**/*.png', 'src/**/*.jpg', 'src/**/*.gif', 'src/**/*.jpeg', 'src/**/*.svg'])
+	return gulp.src('src/**/*.{png,jpg,gif,jpeg,svg}')
 		.pipe(gulp.dest('release'));
 });
 
