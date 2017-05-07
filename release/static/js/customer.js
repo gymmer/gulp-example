@@ -1,6 +1,6 @@
 jQuery.noConflict();
 jQuery(function($) {
-    alert('js worked!!!');
+    alert('js worked!!');
     /*
      * 外部链接添加属性：target="_blank"
      */
