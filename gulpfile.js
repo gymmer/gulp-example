@@ -19,6 +19,7 @@ gulp.task('reload', function() {
 // 编译less文件，并监听less文件改动：重新编译+自动刷新
 gulp.task('less', function() {
 	return gulp.src('src/less/**/*.less')
+		.pipe(plugins.plumber({errorHandler: plugins.notify.onError('Error: <%= error.message %>')})) // 防止less出错，自动退出watch
 		.pipe(plugins.less())
 		.pipe(gulp.dest('src/css/user'))
 		.pipe(plugins.connect.reload());

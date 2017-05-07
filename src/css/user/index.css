@@ -25,7 +25,7 @@
   display: inline;
   font-family: 'simhei', '黑体', Helvetica, Arial, sans-serif;
   font-size: 2.2em;
-  color: #f0f;
+  color: #0ff;
   padding-left: 10px;
   height: 60px;
   line-height: 60px;
@@ -267,7 +267,7 @@ footer .address span:nth-child(4) {
   background-color: #fff;
 }
 #slider ol.dots li.active {
-  background-color: #f0f;
+  background-color: #0ff;
 }
 #slider .arrows span {
   transition: background-color, 0.4s;
@@ -361,7 +361,7 @@ footer .address span:nth-child(4) {
   position: absolute;
   right: 0;
   bottom: 5px;
-  color: #f0f;
+  color: #0ff;
 }
 .main-box .more:hover {
   color: #ff4599;
@@ -394,7 +394,7 @@ footer .address span:nth-child(4) {
   color: #333;
 }
 .preview li a:hover {
-  color: #f0f;
+  color: #0ff;
 }
 .preview li time {
   position: absolute;
@@ -441,7 +441,7 @@ footer .address span:nth-child(4) {
   font-size: 1.1em;
 }
 .news li a:hover {
-  color: #f0f;
+  color: #0ff;
 }
 .news li a:before {
   font-family: FontAwesome;
@@ -461,7 +461,7 @@ footer .address span:nth-child(4) {
   content: ' )';
 }
 .news li a:hover + time {
-  color: #f0f;
+  color: #0ff;
 }
 aside {
   background-color: #F3F9FC;
@@ -498,7 +498,7 @@ aside:hover {
   padding: 0;
   font-family: 'simhei', '黑体', Helvetica, Arial, sans-serif;
   color: #333;
-  border-bottom: 2px solid #f0f;
+  border-bottom: 2px solid #0ff;
   padding-bottom: 8px;
   margin-bottom: 8px;
   line-height: 40px;
