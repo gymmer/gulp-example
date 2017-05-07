@@ -1,6 +1,6 @@
 jQuery.noConflict();
 jQuery(function($) {
-    $('#primary-header h1').html('Test js!');
+    $('#primary-header h1').html('Test js!!');
     /*
      * 外部链接添加属性：target="_blank"
      */
