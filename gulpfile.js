@@ -3,111 +3,146 @@
 var gulp = require('gulp');
 var plugins = require('gulp-load-plugins')();
 
-var filePath = {
-	'src': 'src/',
-	'dist': 'dist/',
+// default
 
-	'html': '',
-	'css': 'static/css/',
-	'less': 'static/less/',
-	'js': 'static/js/',
-	'img': 'static/img/',
-	'lib': 'lib/'
-}
-var copyFile = [filePath.img, filePath.lib];
+gulp.task('default', function(){
+	return gulp.run('debug');
+	// return gulp.run('release');
+});
 
-gulp.task('clean', function() {
-	gulp.src(filePath.dist)
+// clean
+
+gulp.task('clean-debug', function() {
+	return gulp.src('debug')
 		.pipe(plugins.clean());
 });
 
+gulp.task('clean-release', function() {
+	return gulp.src('release')
+		.pipe(plugins.clean());
+})
+
+gulp.task('clean', function() {
+	return gulp.run('clean-debug', 'clean-release');
+})
+
+// debug
+
 gulp.task('jslint', function() {
-	gulp.src(filePath.src + filePath.js + '**/*.js')
+	return gulp.src('src/js/user/**/*.js')
 		.pipe(plugins.jshint())
 		.pipe(plugins.jshint.reporter());
 });
 
-gulp.task('minify-js', function() {
-	gulp.src(filePath.src + filePath.js + '**/*.js')
-		.pipe(gulp.dest(filePath.dist + filePath.js))
-		.pipe(plugins.uglify())
-		.pipe(plugins.rename({
-		    suffix: '.min'
-		}))
-		.pipe(gulp.dest(filePath.dist + filePath.js))
-		// .pipe(plugins.livereload());
+gulp.task('debug-js', function() {
+	return gulp.src('src/js/**/*')
+		.pipe(gulp.dest('debug/js'))
 		.pipe(plugins.connect.reload());
 });
 
-gulp.task('minify-css', function() {
-	gulp.src(filePath.src + filePath.css + '**/*.css')
-		.pipe(gulp.dest(filePath.dist + filePath.css))
-		.pipe(plugins.minifyCss())
-		.pipe(plugins.rename({
-		    suffix: '.min'
-		}))
-		.pipe(gulp.dest(filePath.dist + filePath.css))
-		// .pipe(plugins.livereload());
+gulp.task('debug-css', function() {
+	return gulp.src('src/css/**/*')
+		.pipe(gulp.dest('debug/css'))
 		.pipe(plugins.connect.reload());
 });
 
-gulp.task('minify-html', function() {
-	gulp.src(filePath.src + filePath.html + '**/*.html')
-		.pipe(gulp.dest(filePath.dist + filePath.html))
-		.pipe(plugins.minifyHtml())
-		.pipe(plugins.rename({
-		    suffix: '.min'
-		}))
-		.pipe(gulp.dest(filePath.dist + filePath.html))
-		// .pipe(plugins.livereload());
+gulp.task('debug-html', function() {
+	return gulp.src('src/**/*.html')
+		.pipe(gulp.dest('debug'))
 		.pipe(plugins.connect.reload());
 });
 
-gulp.task('less', function() {
-	gulp.src(filePath.src + filePath.less + '**/*.less')
+gulp.task('debug-less', function() {
+	return gulp.src('src/less/**/*.less')
 		.pipe(plugins.less())
-		.pipe(gulp.dest(filePath.dist + filePath.css))
-		.pipe(plugins.minifyCss())
-		.pipe(plugins.rename({
-		    suffix: '.min'
-		}))
-		.pipe(gulp.dest(filePath.dist + filePath.css))
-		// .pipe(plugins.livereload());
+		.pipe(gulp.dest('debug/css/user'))
 		.pipe(plugins.connect.reload());
 });
 
-gulp.task('copy-file', function() {
-	copyFile.forEach( function(path) {
-		gulp.src(filePath.src + path + '**/*')
-			.pipe(gulp.dest(filePath.dist + path))
-	});
+gulp.task('debug-img', function() {
+	return gulp.src('src/img/**/*')
+		.pipe(gulp.dest('debug/img'))
+		.pipe(plugins.connect.reload());
 });
 
 gulp.task('watch', function() {
-	// plugins.livereload.listen();
-	gulp.watch(filePath.src + filePath.js + '**/*.js', function() {
-		gulp.run('minify-js');
+	gulp.watch('src/js/**/*.js', function() {
+		gulp.run('debug-js');
 	});
-	gulp.watch(filePath.src + filePath.css + '**/*.css', function() {
-		gulp.run('minify-css');
+	gulp.watch('src/css/**/*.css', function() {
+		gulp.run('debug-css');
 	});
-	gulp.watch(filePath.src + filePath.html + '**/*.html', function() {
-		gulp.run('minify-html');
+	gulp.watch('src/**/*.html', function() {
+		gulp.run('debug-html');
 	});
-	gulp.watch(filePath.src + filePath.less + '**/*.less', function() {
-		gulp.run('less');
+	gulp.watch('src/less/**/*.less', function() {
+		gulp.run('debug-less');
+	});
+	gulp.watch('src/img/**/*', function() {
+		gulp.run('debug-img');
 	});
 });
 
 gulp.task('server', function() {
 	plugins.connect.server({
-		name: 'Dist server.',
-		root: filePath.dist,
-	    port: 8080,  // Can not be 8080
+		name: 'debug server.',
+		root: 'debug',
+	    port: 8080,  // Can not be 80
 	    livereload: true
 	});
 });
 
-gulp.task('default', [], function() {
-	gulp.run('jslint', 'minify-js', 'minify-css', 'minify-html', 'less', 'copy-file', 'watch', 'server');
+gulp.task('debug', ['clean-debug'], function() {
+	return gulp.run('jslint', 'debug-js', 'debug-css', 'debug-html', 'debug-less', 'debug-img', 'watch', 'server');
+});
+
+// release
+
+gulp.task('release-js', function() {
+	return gulp.src('src/js/**/*')
+		.pipe(plugins.uglify())					// JS压缩
+		.pipe(plugins.rev())					// 添加MD5
+		.pipe(gulp.dest('release/js'))			// 保存JS文件
+		.pipe(plugins.rev.manifest())			// 生成MD5映射
+        .pipe(gulp.dest('release/rev/js'));		// 保存映射
+});
+
+gulp.task('release-css', function() {
+	return gulp.src('src/css/**/*.css')
+		.pipe(plugins.minifyCss())				// CSS压缩 
+		.pipe(plugins.rev())					// 添加MD5
+		.pipe(gulp.dest('release/css'))			// 保存CSS文件
+		.pipe(plugins.rev.manifest())			// 生成MD5映射
+        .pipe(gulp.dest('release/rev/css'));	// 保存映射
+});
+
+gulp.task('release-fonts', function() {
+	return gulp.src('src/css/fonts/**/*')
+		.pipe(gulp.dest('release/css/fonts'));
+});
+
+gulp.task('release-less', function() {
+	return gulp.src('src/less/**/*.less')
+		.pipe(plugins.less())					// 编译less
+		.pipe(plugins.minifyCss())				// CSS压缩
+		.pipe(plugins.rev())					// 添加MD5
+		.pipe(gulp.dest('release/css/user'))	// 保存CSS文件
+		.pipe(plugins.rev.manifest())			// 生成MD5映射
+        .pipe(gulp.dest('release/rev/less'));	// 保存映射
+});
+
+gulp.task('release-img', function() {
+	return gulp.src('src/img/**/*')
+		.pipe(gulp.dest('release/img'));
+});
+
+gulp.task('release-html', ['release-js','release-css','release-less'], function() {		// 依赖：需先生成映射
+	return gulp.src(['release/rev/**/*.json', 'src/**/*.html'])
+		.pipe(plugins.revCollector())			// 根据映射，替换文件名
+		.pipe(plugins.minifyHtml())				// HTML压缩
+		.pipe(gulp.dest('release'));			// 保存HTML文件
+});
+
+gulp.task('release', ['clean-release'], function() {
+	return gulp.run('release-js','release-css','release-less', 'release-html', 'release-fonts', 'release-img');
 });

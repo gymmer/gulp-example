@@ -25,7 +25,7 @@
   display: inline;
   font-family: 'simhei', '黑体', Helvetica, Arial, sans-serif;
   font-size: 2.2em;
-  color: #ff0;
+  color: #000;
   padding-left: 10px;
   height: 60px;
   line-height: 60px;
@@ -277,7 +277,7 @@ footer .address span:nth-child(4) {
   background-color: #fff;
 }
 #slider ol.dots li.active {
-  background-color: #ff0;
+  background-color: #000;
 }
 #slider .arrows span {
   transition: background-color, 0.4s;
@@ -371,7 +371,7 @@ footer .address span:nth-child(4) {
   position: absolute;
   right: 0;
   bottom: 5px;
-  color: #ff0;
+  color: #000;
 }
 .main-box .more:hover {
   color: #ff4599;
@@ -404,7 +404,7 @@ footer .address span:nth-child(4) {
   color: #333;
 }
 .preview li a:hover {
-  color: #ff0;
+  color: #000;
 }
 .preview li time {
   position: absolute;
@@ -451,7 +451,7 @@ footer .address span:nth-child(4) {
   font-size: 1.1em;
 }
 .news li a:hover {
-  color: #ff0;
+  color: #000;
 }
 .news li a:before {
   font-family: FontAwesome;
@@ -471,7 +471,7 @@ footer .address span:nth-child(4) {
   content: ' )';
 }
 .news li a:hover + time {
-  color: #ff0;
+  color: #000;
 }
 aside {
   background-color: #F3F9FC;
@@ -508,7 +508,7 @@ aside:hover {
   padding: 0;
   font-family: 'simhei', '黑体', Helvetica, Arial, sans-serif;
   color: #333;
-  border-bottom: 2px solid #ff0;
+  border-bottom: 2px solid #000;
   padding-bottom: 8px;
   margin-bottom: 8px;
   line-height: 40px;
@@ -549,7 +549,7 @@ aside:hover {
   -ms-transition: background-position, 0.2s;
   -moz-transition: background-position, 0.2s;
   -webkit-transition: background-position, 0.2s;
-  background-image: url(../img/icons-customer.png);
+  background-image: url(../../img/icons-customer.png);
   background-repeat: no-repeat;
   background-position: 0 0;
   display: block;
