@@ -3,17 +3,20 @@
 var gulp = require('gulp');
 var plugins = require('gulp-load-plugins')();
 
+// JS代码校验。只校验用户自定义的js文件，不校验第三方js文件，如jQuery
 gulp.task('jslint', function() {
 	return gulp.src('src/js/user/**/*.js')
 		.pipe(plugins.jshint())
 		.pipe(plugins.jshint.reporter());
 });
 
+// 监听所有文件改动：自动刷新
 gulp.task('reload', function() {
 	return gulp.src('src/**/*')
 		.pipe(plugins.connect.reload());
 });
 
+// 编译less文件，并监听less文件改动：重新编译+自动刷新
 gulp.task('less', function() {
 	return gulp.src('src/less/**/*.less')
 		.pipe(plugins.less())
@@ -21,11 +24,13 @@ gulp.task('less', function() {
 		.pipe(plugins.connect.reload());
 });
 
+// 监听文件改动
 gulp.task('watch', function() {
 	gulp.watch('src/**/*', ['reload']);
 	gulp.watch('src/less/**/*.less', ['less']);
 });
 
+// 运行一个服务器
 gulp.task('server', function() {
 	plugins.connect.server({
 		root: 'src',
@@ -34,8 +39,9 @@ gulp.task('server', function() {
 	});
 });
 
+// 默认任务
 gulp.task('default', function() {
-	gulp.run('jslint', 'less', 'reload', 'watch', 'server')
+	gulp.run('jslint', 'reload', 'less', 'watch', 'server')
 });
 
 // release
