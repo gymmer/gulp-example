@@ -45,48 +45,51 @@ gulp.task('default', function() {
 	gulp.run('jslint', 'reload', 'less', 'watch', 'server')
 });
 
-// release
+// build
 
 gulp.task('clean', function() {
-	return gulp.src('release')
+	return gulp.src('dist')
 		.pipe(plugins.clean());
 })
 
-gulp.task('release-js', function() {
+gulp.task('build-js', function() {
 	return gulp.src('src/**/*.js')
 		.pipe(plugins.uglify())					// JS压缩
 		.pipe(plugins.rev())					// 添加MD5
-		.pipe(gulp.dest('release'))				// 保存JS文件
+		.pipe(gulp.dest('dist'))				// 保存JS文件
 		.pipe(plugins.rev.manifest())			// 生成MD5映射
-        .pipe(gulp.dest('release/rev/js'));		// 保存映射
+        .pipe(gulp.dest('dist/rev/js'));		// 保存映射
 });
 
-gulp.task('release-css', ['less'], function() {	// 编译less
+gulp.task('build-css', ['less'], function() {	// 编译less
 	return gulp.src('src/**/*.css')
 		.pipe(plugins.minifyCss())				// CSS压缩 
 		.pipe(plugins.rev())					// 添加MD5
-		.pipe(gulp.dest('release'))				// 保存CSS文件
+		.pipe(gulp.dest('dist'))				// 保存CSS文件
 		.pipe(plugins.rev.manifest())			// 生成MD5映射
-        .pipe(gulp.dest('release/rev/css'));	// 保存映射
+        .pipe(gulp.dest('dist/rev/css'));	// 保存映射
 });
 
-gulp.task('release-html', ['release-js', 'release-css'], function() {		// 依赖：需先生成映射
-	return gulp.src(['release/rev/**/*.json', 'src/**/*.html'])
+gulp.task('build-html', ['build-js', 'build-css'], function() {		// 依赖：需先生成映射
+	return gulp.src(['dist/rev/**/*.json', 'src/**/*.html'])
 		.pipe(plugins.revCollector())			// 根据映射，替换文件名
 		.pipe(plugins.minifyHtml())				// HTML压缩
-		.pipe(gulp.dest('release'));			// 保存HTML文件
+		.pipe(gulp.dest('dist'));			// 保存HTML文件
 });
 
-gulp.task('release-fonts', function() {
+gulp.task('build-fonts', function() {
 	return gulp.src('src/**/*.{eot,ttf,woff,woff2,otf}')
-		.pipe(gulp.dest('release'));
+		.pipe(gulp.dest('dist'));
 });
 
-gulp.task('release-img', function() {
+gulp.task('build-img', function() {
 	return gulp.src('src/**/*.{png,jpg,gif,jpeg,svg}')
-		.pipe(gulp.dest('release'));
+		.pipe(plugins.cache(plugins.imagemin({	// 图片压缩
+			interlaced: true
+		})))
+		.pipe(gulp.dest('dist'));
 });
 
-gulp.task('release', ['clean'], function() {
-	return gulp.run('release-html', 'release-fonts', 'release-img');
+gulp.task('build', ['clean'], function() {
+	return gulp.run('build-html', 'build-fonts', 'build-img');
 });

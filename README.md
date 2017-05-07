@@ -1,14 +1,10 @@
-### first node project
-
 ##### 准备
 `npm install -g gulp`
-
-
-##### 开始
 `cd /path/to/project`
 `npm install`
+
+##### 开发
 `gulp`
 
-#### release
-`gulp clean`
+#### 发布
 `gulp release`
