@@ -42,7 +42,7 @@ gulp.task('server', function() {
 
 // 默认任务
 gulp.task('default', function() {
-	gulp.run('jslint', 'reload', 'less', 'watch', 'server')
+	gulp.run('jslint', 'reload', 'less', 'watch', 'server');
 });
 
 // build
