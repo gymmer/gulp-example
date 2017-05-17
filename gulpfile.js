@@ -25,10 +25,20 @@ gulp.task('less', function() {
 		.pipe(plugins.connect.reload());
 });
 
+// 编译sass文件，并监听sass文件改动：重新编译+自动刷新
+gulp.task('sass', function() {
+	return gulp.src('src/sass/**/*.{sass,scss}')
+		.pipe(plugins.plumber({errorHandler: plugins.notify.onError('Error: <%= error.message %>')})) // 防止sass出错，自动退出watch
+		.pipe(plugins.sass())
+		.pipe(gulp.dest('src/css/user'))
+		.pipe(plugins.connect.reload());
+});
+
 // 监听文件改动
 gulp.task('watch', function() {
 	gulp.watch('src/**/*', ['reload']);
 	gulp.watch('src/less/**/*.less', ['less']);
+	// gulp.watch('src/less/**/*.{sass,scss}', ['sass']);
 });
 
 // 运行一个服务器
@@ -43,6 +53,7 @@ gulp.task('server', function() {
 // 默认任务
 gulp.task('default', function() {
 	gulp.run('jslint', 'reload', 'less', 'watch', 'server');
+	// gulp.run('jslint', 'reload', 'sass', 'watch', 'server');
 });
 
 // build
@@ -62,19 +73,20 @@ gulp.task('build-js', function() {
 });
 
 gulp.task('build-css', ['less'], function() {	// 编译less
+// gulp.task('build-css', ['sass'], function() {	// 编译sass
 	return gulp.src('src/**/*.css')
 		.pipe(plugins.minifyCss())				// CSS压缩 
 		.pipe(plugins.rev())					// 添加MD5
 		.pipe(gulp.dest('dist'))				// 保存CSS文件
 		.pipe(plugins.rev.manifest())			// 生成MD5映射
-        .pipe(gulp.dest('dist/rev/css'));	// 保存映射
+        .pipe(gulp.dest('dist/rev/css'));		// 保存映射
 });
 
 gulp.task('build-html', ['build-js', 'build-css'], function() {		// 依赖：需先生成映射
 	return gulp.src(['dist/rev/**/*.json', 'src/**/*.html'])
 		.pipe(plugins.revCollector())			// 根据映射，替换文件名
 		.pipe(plugins.minifyHtml())				// HTML压缩
-		.pipe(gulp.dest('dist'));			// 保存HTML文件
+		.pipe(gulp.dest('dist'));				// 保存HTML文件
 });
 
 gulp.task('build-fonts', function() {
