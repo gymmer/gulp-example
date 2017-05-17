@@ -91,5 +91,7 @@ gulp.task('build-img', function() {
 });
 
 gulp.task('build', ['clean'], function() {
-	return gulp.run('build-html', 'build-fonts', 'build-img');
+	return gulp.run('build-html', 'build-fonts', 'build-img', function() {
+		gulp.src('dist/rev').pipe(plugins.clean());
+	});
 });
