@@ -29,7 +29,17 @@ gulp.task('less', function() {
 gulp.task('sass', function() {
 	return gulp.src('src/sass/**/*.{sass,scss}')
 		.pipe(plugins.plumber({errorHandler: plugins.notify.onError('Error: <%= error.message %>')})) // 防止sass出错，自动退出watch
-		.pipe(plugins.sass())
+		// (1) 如果只使用 sass, 请使用sass插件:
+		// .pipe(plugins.sass({
+		// 	outputStyle: 'expanded'  // 可选：nested  (默认)  |  expanded  |  compact  |  compressed
+		// }))
+		// (2) 如果使用 compass, 请使用compass插件:
+		.pipe(plugins.compass({
+			css: 'src/css/user',
+			sass: 'src/sass',
+			image: 'src/img',
+			style: 'expanded' // 可选：nested  (默认)  |  expanded  |  compact  |  compressed
+		}))
 		.pipe(gulp.dest('src/css/user'))
 		.pipe(plugins.connect.reload());
 });

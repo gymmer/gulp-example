@@ -3,6 +3,9 @@
 `cd /path/to/project`
 `npm install`
 
+如果使用compass，需先安装compass：
+`gem install compass`
+
 ##### 开发
 `gulp`
 
