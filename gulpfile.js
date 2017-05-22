@@ -47,8 +47,8 @@ gulp.task('sass', function() {
 // 监听文件改动
 gulp.task('watch', function() {
 	gulp.watch('src/**/*', ['reload']);
-	gulp.watch('src/less/**/*.less', ['less']);
-	// gulp.watch('src/less/**/*.{sass,scss}', ['sass']);
+	// gulp.watch('src/less/**/*.less', ['less']);
+	gulp.watch('src/less/**/*.{sass,scss}', ['sass']);
 });
 
 // 运行一个服务器
@@ -71,7 +71,7 @@ gulp.task('default', function() {
 gulp.task('clean', function() {
 	return gulp.src('dist')
 		.pipe(plugins.clean());
-})
+});
 
 gulp.task('build-js', function() {
 	return gulp.src('src/**/*.js')
@@ -82,8 +82,8 @@ gulp.task('build-js', function() {
         .pipe(gulp.dest('dist/rev/js'));		// 保存映射
 });
 
-gulp.task('build-css', ['less'], function() {	// 编译less
-// gulp.task('build-css', ['sass'], function() {	// 编译sass
+// gulp.task('build-css', ['less'], function() {	// 编译less
+gulp.task('build-css', ['sass'], function() {	// 编译sass
 	return gulp.src('src/**/*.css')
 		.pipe(plugins.minifyCss())				// CSS压缩 
 		.pipe(plugins.rev())					// 添加MD5
@@ -95,7 +95,7 @@ gulp.task('build-css', ['less'], function() {	// 编译less
 gulp.task('build-html', ['build-js', 'build-css'], function() {		// 依赖：需先生成映射
 	return gulp.src(['dist/rev/**/*.json', 'src/**/*.html'])
 		.pipe(plugins.revCollector())			// 根据映射，替换文件名
-		.pipe(plugins.minifyHtml())				// HTML压缩
+		.pipe(plugins.htmlmin({collapseWhitespace: true}))	// HTML压缩
 		.pipe(gulp.dest('dist'));				// 保存HTML文件
 });
 
