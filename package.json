@@ -17,7 +17,7 @@
     "gulp": "^3.9.1",
     "gulp-cache": "^0.4.6",
     "gulp-clean": "^0.3.2",
-    "gulp-cleancss": "^0.2.2",
+    "gulp-clean-css": "^3.3.1",
     "gulp-compass": "^2.1.0",
     "gulp-connect": "^5.0.0",
     "gulp-htmlmin": "^3.0.0",
