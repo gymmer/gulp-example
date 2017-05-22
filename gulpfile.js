@@ -85,7 +85,7 @@ gulp.task('build-js', function() {
 // gulp.task('build-css', ['less'], function() {	// 编译less
 gulp.task('build-css', ['sass'], function() {	// 编译sass
 	return gulp.src('src/**/*.css')
-		.pipe(plugins.minifyCss())				// CSS压缩 
+		.pipe(plugins.cleancss({keepBreaks: false}))	// CSS压缩 
 		.pipe(plugins.rev())					// 添加MD5
 		.pipe(gulp.dest('dist'))				// 保存CSS文件
 		.pipe(plugins.rev.manifest())			// 生成MD5映射
