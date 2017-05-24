@@ -21,7 +21,7 @@ gulp.task('less', function() {
 	return gulp.src('src/less/**/*.less')
 		.pipe(plugins.plumber({errorHandler: plugins.notify.onError('Error: <%= error.message %>')})) // 防止less出错，自动退出watch
 		.pipe(plugins.less())
-		.pipe(gulp.dest('src/css/user'))
+		.pipe(gulp.dest('src/css/compile'))
 		.pipe(plugins.connect.reload());
 });
 
@@ -35,19 +35,19 @@ gulp.task('sass', function() {
 		// }))
 		// (2) 如果使用 compass, 请使用compass插件:
 		.pipe(plugins.compass({
-			css: 'src/css/user',
+			css: 'src/css/compile',
 			sass: 'src/sass',
 			image: 'src/img',
 			style: 'expanded' // 可选：nested  (默认)  |  expanded  |  compact  |  compressed
 		}))
-		.pipe(gulp.dest('src/css/user'))
+		.pipe(gulp.dest('src/css/compile'))
 		.pipe(plugins.connect.reload());
 });
 
 // 监听文件改动
 gulp.task('watch', function() {
 	gulp.watch('src/**/*', ['reload']);
-	// gulp.watch('src/less/**/*.less', ['less']);
+	gulp.watch('src/less/**/*.less', ['less']);
 	gulp.watch('src/less/**/*.{sass,scss}', ['sass']);
 });
 
@@ -62,8 +62,7 @@ gulp.task('server', function() {
 
 // 默认任务
 gulp.task('default', function() {
-	gulp.run('jslint', 'reload', 'less', 'watch', 'server');
-	// gulp.run('jslint', 'reload', 'sass', 'watch', 'server');
+	gulp.run('jslint', 'reload', 'less', 'sass', 'watch', 'server');
 });
 
 // build
@@ -82,10 +81,9 @@ gulp.task('build-js', function() {
         .pipe(gulp.dest('dist/rev/js'));		// 保存映射
 });
 
-// gulp.task('build-css', ['less'], function() {	// 编译less
-gulp.task('build-css', ['sass'], function() {	// 编译sass
+gulp.task('build-css', ['less', 'sass'], function() {	// 编译less/sass
 	return gulp.src('src/**/*.css')
-		.pipe(plugins.cleanCss())	// CSS压缩 
+		.pipe(plugins.cleanCss())				// CSS压缩 
 		.pipe(plugins.rev())					// 添加MD5
 		.pipe(gulp.dest('dist'))				// 保存CSS文件
 		.pipe(plugins.rev.manifest())			// 生成MD5映射
@@ -94,9 +92,9 @@ gulp.task('build-css', ['sass'], function() {	// 编译sass
 
 gulp.task('build-html', ['build-js', 'build-css'], function() {		// 依赖：需先生成映射
 	return gulp.src(['dist/rev/**/*.json', 'src/**/*.html'])
-		.pipe(plugins.revCollector())			// 根据映射，替换文件名
+		.pipe(plugins.revCollector())						// 根据映射，替换文件名
 		.pipe(plugins.htmlmin({collapseWhitespace: true}))	// HTML压缩
-		.pipe(gulp.dest('dist'));				// 保存HTML文件
+		.pipe(gulp.dest('dist'));							// 保存HTML文件
 });
 
 gulp.task('build-fonts', function() {

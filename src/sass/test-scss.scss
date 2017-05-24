@@ -1,0 +1,10 @@
+/* .scss worked */
+
+@import 'compass', 'test-import';
+
+/** reset **/
+@import 'compass/reset';
+
+.test-scss {
+  color: $color;
+}
