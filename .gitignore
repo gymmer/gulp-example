@@ -2,5 +2,6 @@
 /debug
 /release
 /dist
+/build
 /.sass-cache
 .DS_Store

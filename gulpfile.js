@@ -48,7 +48,7 @@ gulp.task('sass', function() {
 gulp.task('watch', function() {
 	gulp.watch('src/**/*', ['reload']);
 	gulp.watch('src/less/**/*.less', ['less']);
-	gulp.watch('src/less/**/*.{sass,scss}', ['sass']);
+	gulp.watch('src/sass/**/*.{sass,scss}', ['sass']);
 });
 
 // 运行一个服务器
