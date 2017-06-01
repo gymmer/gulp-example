@@ -13,13 +13,16 @@
   "author": "gymmer",
   "license": "ISC",
   "devDependencies": {
+    "babel-preset-latest": "^6.24.1",
     "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
     "gulp-cache": "^0.4.6",
     "gulp-clean": "^0.3.2",
     "gulp-clean-css": "^3.3.1",
     "gulp-compass": "^2.1.0",
     "gulp-connect": "^5.0.0",
     "gulp-htmlmin": "^3.0.0",
+    "gulp-if": "^2.0.2",
     "gulp-imagemin": "^3.2.0",
     "gulp-jshint": "^2.0.4",
     "gulp-less": "^3.3.0",
@@ -29,6 +32,7 @@
     "gulp-rev": "^7.1.2",
     "gulp-rev-collector": "^1.1.1",
     "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.6.0",
     "gulp-uglify": "^2.1.2",
     "jshint": "^2.9.4"
   }
